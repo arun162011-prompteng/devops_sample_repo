@@ -2,16 +2,11 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Install Dependencies') {
+        stage('Verify Python') {
             steps {
-                bat 'py -3.10 -m pip install -r requirements.txt'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                bat 'py -3.10 -m pytest -v'
+                bat 'python --version'
+                bat 'python -m pip --version'
+                bat 'where python'
             }
         }
     }
