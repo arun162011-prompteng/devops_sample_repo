@@ -2,12 +2,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Verify Python') {
+
+        stage('Install Dependencies') {
             steps {
-                bat 'python --version'
-                bat 'python -m pip --version'
-                bat 'where python'
+                bat 'python -m pip install -r requirements.txt'
             }
+        }
+
+        stage('Run Unit Tests') {
+            steps {
+                bat 'python -m pytest -v'
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo 'CI Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'CI Pipeline failed.'
         }
     }
 }
